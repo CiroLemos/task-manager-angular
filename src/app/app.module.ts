@@ -6,12 +6,14 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './navbar/navbar.component';
 import { TasksComponent } from "./Tasks/tasks.component";
+import { TaskDetailComponent } from "./Tasks/task-detail/task-detail.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    TasksComponent
+    TasksComponent,
+    TaskDetailComponent
   ],
   imports: [
     BrowserModule,
