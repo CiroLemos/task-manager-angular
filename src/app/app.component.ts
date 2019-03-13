@@ -9,15 +9,4 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   title = 'app works!';
-  task = new Task(1,'Enviar orçamento para o usuário X');
-}
-
-export class Task {
-  public id: number;
-  public title: string;
-  
-  constructor(id: number, title: string){
-    this.id = id;
-    this.title = title;
-  }
 }
