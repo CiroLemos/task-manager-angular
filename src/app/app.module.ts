@@ -8,12 +8,12 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './navbar/navbar.component';
 import { TasksComponent } from "./Tasks/tasks.component";
 import { TaskDetailComponent } from "./Tasks/task-detail/task-detail.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 const ROUTES = RouterModule.forRoot([
-  {
-    path: 'tasks',
-    component: TasksComponent
-  }
+  { path: 'dashboard',component: DashboardComponent },
+  { path: 'tasks', component: TasksComponent },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 ]);
 
 @NgModule({
@@ -21,7 +21,8 @@ const ROUTES = RouterModule.forRoot([
     AppComponent,
     NavBarComponent,
     TasksComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
