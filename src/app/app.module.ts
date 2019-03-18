@@ -13,6 +13,9 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 
 import { TaskService } from "./Tasks/shared/task.service";
 
+import { InMemoryWebApiModule } from "angular-in-memory-web-api";
+import { InMemoryTaskDataService } from './in-memory-task-data.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +28,8 @@ import { TaskService } from "./Tasks/shared/task.service";
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    InMemoryWebApiModule.forRoot(InMemoryTaskDataService)
   ],
   providers: [
     TaskService
