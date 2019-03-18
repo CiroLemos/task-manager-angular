@@ -1,15 +1,18 @@
+<h1 class="page-header">Lista de Tarefas</h1>
 <table class="table">
     <thead>
-        <th>ID</th>
-        <th>Título</th>
-        <th>Ações</th>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Ações</th>
+        </tr>
     </thead>
     <tbody>
         <tr *ngFor="let task of tasks">
             <td>{{task.id}}</td>
             <td>{{task.title}}</td>
             <td>
-                <a [routerLink]="['/tasks', task.id]" class="btn btn-info" >
+                <a [routerLink]="['/tasks', task.id]" class="btn btn-info">
                     <span class="oi oi-info"></span>
                     Detalhes
                 </a>
