@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from "@angular/router";
+
+import { AppRoutingModule } from "./app-routing.module";
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './navbar/navbar.component';
@@ -11,13 +12,6 @@ import { TaskDetailComponent } from "./Tasks/task-detail/task-detail.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 
 import { TaskService } from "./Tasks/shared/task.service";
-
-const ROUTES = RouterModule.forRoot([
-  { path: 'dashboard',component: DashboardComponent },
-  { path: 'tasks', component: TasksComponent },
-  { path: 'tasks/:id', component: TaskDetailComponent },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
-]);
 
 @NgModule({
   declarations: [
@@ -31,7 +25,7 @@ const ROUTES = RouterModule.forRoot([
     BrowserModule,
     FormsModule,
     HttpModule,
-    ROUTES
+    AppRoutingModule
   ],
   providers: [
     TaskService
