@@ -9,7 +9,7 @@ import { Task } from "../shared/task.model";
 
 @Component({
     selector: 'task-detail',
-    templateUrl: './task-detail.component.html', 
+    templateUrl: './task-detail.component.html',
 })
 export class TaskDetailComponent implements OnInit {
 
@@ -19,8 +19,11 @@ export class TaskDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params
-        .switchMap((params: Params) => this.taskService.getTask(+params['id']))
-        .subscribe(task => this.task = task);
+            .switchMap((params: Params) => this.taskService.getTask(+params['id']))
+            .subscribe(
+                task => this.task = task,
+                error => alert('Ocorreu um erro no servidor'),
+            );
     }
 
     public goBack() {
