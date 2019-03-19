@@ -11,6 +11,7 @@ import "rxjs/add/observable/throw";
 export class TaskService {
 
     public taskUrl = 'api/tasks';
+    public headers = new Headers({ 'Content-type': 'application/json' });
 
     constructor(private http: Http) { }
 
@@ -37,9 +38,8 @@ export class TaskService {
     public create(task: Task): Observable<Task> {
         let url = this.taskUrl;
         let body = JSON.stringify(task);
-        let headers = new Headers({ 'Content-type': 'applicatiion/json' });
 
-        return this.http.post(url, body, { headers: headers })
+        return this.http.post(url, body, { headers: this.headers })
             .catch(this.handleErrors)
             .map(response => response.json().data as Task);
     }
@@ -47,18 +47,16 @@ export class TaskService {
     public update(task: Task): Observable<Task> {
         let url = `${this.taskUrl}/${task.id}`;
         let body = JSON.stringify(task);
-        let headers = new Headers({ 'Content-type': 'application/json' });
 
-        return this.http.put(url, body, { headers: headers })
+        return this.http.put(url, body, { headers: this.headers })
             .catch(this.handleErrors)
             .map(() => task)
     }
 
     public delete(id: number): Observable<null> {
         let url = `${this.taskUrl}/${id}`;
-        let headers = new Headers({ 'Content-type': 'application/json' });
 
-        return this.http.delete(url, { headers: headers })
+        return this.http.delete(url, { headers: this.headers })
             .catch(this.handleErrors)
             .map(() => null);
     }
