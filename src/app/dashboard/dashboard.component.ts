@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit{
     public tasks: Task[]
 
     ngOnInit(): void {
-        this.taskService.getImportantTasks().then((tasks) => this.tasks = tasks);
+        this.taskService.getImportantTasks().subscribe((tasks) => this.tasks = tasks);
     }
     constructor(private taskService: TaskService) {}
 }
