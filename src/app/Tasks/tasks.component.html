@@ -6,7 +6,7 @@
             <input [(ngModel)]="newTask.title" type="text" class="form-control" placeholder="Digite aqui uma nova tarefa">
         </div>
         <div class="col-md-2">
-            <button class="btn btn-success" (click)="createTask()">
+            <button class="btn btn-success" (click)="create()">
                 Adicionar Tarefa
             </button>
         </div>
@@ -30,7 +30,7 @@
                     <span class="oi oi-info"></span>
                     Detalhes
                 </a>
-                <button class="btn btn-danger" (click)="deleteTask(task)">
+                <button class="btn btn-danger" (click)="delete(task)">
                     <span class="oi oi-trash"></span>
                     Excluir
                 </button>
