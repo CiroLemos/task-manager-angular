@@ -11,7 +11,7 @@ import { TaskService } from "./shared/task.service";
 export class TasksComponent implements OnInit {
     
     public tasks: Array<Task>; 
-    public selectedTask: Task;
+    public newTask: Task;
 
     constructor(private taskService: TaskService){}
 
@@ -20,10 +20,24 @@ export class TasksComponent implements OnInit {
             .subscribe(
                 tasks => this.tasks = tasks,
                 error => alert('Ocorreu um erro no servidor'));
+        
+        this.newTask = new Task(null, '');
     }
 
-    public onSelect(task: Task): void {
-        this.selectedTask = task;
-    }
+    public createTask() {
+        this.newTask.title = this.newTask.title.trim();
 
+        if(!this.newTask.title)
+            alert('A tarefa deve ter um título');
+        else {
+            this.taskService.createTask(this.newTask)
+                .subscribe(
+                    task => {
+                        this.tasks.push(task);
+                        this.newTask = new Task(null, '');
+                    },
+                    () => alert('Ocorreu um erro no servidor')
+                )
+        }
+    }
 }
