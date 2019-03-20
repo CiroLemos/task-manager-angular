@@ -5,10 +5,7 @@ import { TaskService } from "../../Tasks/shared/task.service";
 
 import { Subject } from "rxjs/Subject";
 
-import "rxjs/add/operator/switchMap";
-import "rxjs/add/Observable/of";
-import "rxjs/add/operator/distinctUntilChanged";
-import "rxjs/add/operator/debounceTime";
+
 import { Observable } from "rxjs/Observable";
 import { Router } from "@angular/router";
 
