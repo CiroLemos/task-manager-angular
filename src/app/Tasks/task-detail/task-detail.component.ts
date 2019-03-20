@@ -12,6 +12,10 @@ import { Task } from "../shared/task.model";
 export class TaskDetailComponent implements OnInit {
 
     public task: Task;
+    public taskDoneOptions: Array<any> = [
+        {value: false, text: 'Pendente'},
+        {value: true, text: 'Feita'}
+    ]
 
     constructor(private taskService: TaskService, private route: ActivatedRoute, private location: Location) { }
 
