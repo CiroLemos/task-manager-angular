@@ -1,0 +1,9 @@
+<div style="position: relative">
+    <div class="form-group">
+        <input #searchInput class="form-control mr-sm-2" (keyup)="search(searchInput.value)" type="search" placeholder="Search" aria-label="Search">
+    </div>
+</div>
+
+<div *ngIf="tasks" class="list-group" style="position: absolute; width: 100%; top: 45px; z-index: 1000">
+    <a *ngFor="let task of tasks" (click)="gotoTask(task)" class="list-group-item" style="cursor:pointer">{{ task.title }}</a>
+</div>
