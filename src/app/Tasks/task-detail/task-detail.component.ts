@@ -21,6 +21,7 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
     constructor(private taskService: TaskService, private route: ActivatedRoute, private location: Location) { }
 
     ngOnInit(): void {
+        this.task = new Task(null, null);
         this.route.params
             .switchMap((params: Params) => this.taskService.getById(+params['id']))
             .subscribe(
@@ -30,6 +31,10 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
+        $('#deadline').datetimepicker({
+            sideBySide: true,
+            locale: 'pt-br'
+        }).on('dp.change', () => this.task.deadline = $('#deadline').val());
     }
 
     public goBack() {
