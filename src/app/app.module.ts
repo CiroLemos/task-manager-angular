@@ -26,6 +26,8 @@ import "rxjs/add/operator/catch";
 import "rxjs/add/Observable/throw";
 import "rxjs/add/Observable/of";
 
+import * as $ from 'jquery';
+
 @NgModule({
   declarations: [
     AppComponent,

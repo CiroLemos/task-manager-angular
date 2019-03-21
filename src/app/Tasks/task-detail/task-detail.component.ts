@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { Location } from "@angular/common";
 
@@ -9,7 +9,8 @@ import { Task } from "../shared/task.model";
     selector: 'task-detail',
     templateUrl: './task-detail.component.html',
 })
-export class TaskDetailComponent implements OnInit {
+export class TaskDetailComponent implements OnInit, AfterViewInit {
+    
 
     public task: Task;
     public taskDoneOptions: Array<any> = [
@@ -26,6 +27,9 @@ export class TaskDetailComponent implements OnInit {
                 task => this.task = task,
                 error => alert('Ocorreu um erro no servidor'),
             );
+    }
+
+    ngAfterViewInit(): void {
     }
 
     public goBack() {
