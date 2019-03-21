@@ -10,12 +10,12 @@ import { Task } from "../shared/task.model";
     templateUrl: './task-detail.component.html',
 })
 export class TaskDetailComponent implements OnInit, AfterViewInit {
-    
+
 
     public task: Task;
     public taskDoneOptions: Array<any> = [
-        {value: false, text: 'Pendente'},
-        {value: true, text: 'Feita'}
+        { value: false, text: 'Pendente' },
+        { value: true, text: 'Feita' }
     ]
 
     constructor(private taskService: TaskService, private route: ActivatedRoute, private location: Location) { }
@@ -42,15 +42,11 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
     }
 
     public updateTask() {
-        if(!this.task.title) {
-            alert('Tarefa deve ter um título')
-        }else {
-            this.taskService.update(this.task)
-                .subscribe(
-                    () => alert('Tarefa atualizada com sucesso'),
-                    () => alert('Ocorreu um erro no servidor')
-                );
-        }
+        this.taskService.update(this.task)
+            .subscribe(
+                () => alert('Tarefa atualizada com sucesso'),
+                () => alert('Ocorreu um erro no servidor')
+            );
     }
 
     public showFieldError(field): boolean {
