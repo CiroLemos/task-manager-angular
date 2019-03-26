@@ -1,6 +1,6 @@
 <h1 class="page-header">Detalhes da Tarefa: {{ task.title }}</h1>
 
-<form [formGroup]="reactiveTaskForm">
+<form [formGroup]="reactiveTaskForm" (ngSubmit)="updateTask()">
     <div class="row">
         <div class="form-group col-md-6">
             <label for="title" class="control-label">Título</label>
@@ -23,6 +23,9 @@
             <textarea formControlName="description" class="form-control" id="description" rows="4"></textarea>
         </div>
     </div>
+
+    <button [disabled]="reactiveTaskForm.invalid" type="submit" class="btn btn-success" >Atualizar</button>
+    <button class="btn btn-info" (click)="goBack()" type="button">Voltar</button>
 
     <!-- Exemplo de um segundo formgrupo em um formulário. -->
     <!-- <div class="row" formGroupName="user">
