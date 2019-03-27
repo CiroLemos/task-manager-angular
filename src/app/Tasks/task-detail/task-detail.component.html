@@ -4,17 +4,25 @@
     <div class="row">
         <div class="form-group col-md-6">
             <label for="title" class="control-label">Título</label>
-            <input type="text" formControlName="title" id="title" class="form-control" [class.is-valid]="reactiveTaskForm.get('title').valid" [class.is-invalid]="showFieldError(reactiveTaskForm.get('title'))">
+            <input type="text" formControlName="title" id="title" class="form-control" [ngClass]="fieldClassErrorOrSuccess('title')">
+
+            <div *ngIf="showFieldError('title')" class="text-danger">
+                <div *ngIf="getField('title').errors.required">O título é obrigatório</div>
+                <div *ngIf="getField('title').errors.minlength">O título deve ter no mínimo 2 caracteres.</div>
+                <div *ngIf="getField('title').errors.maxlength">O título deve ter no máximo 255 caracteres.</div>
+            </div>
         </div>
         <div class="form-group col-md-3">
             <label for="deadline" class="control-label">Prazo de Entrega</label>
-            <input type="text" formControlName="deadline" id="deadline" class="form-control" [class.is-valid]="reactiveTaskForm.get('deadline').valid" [class.is-invalid]="showFieldError(reactiveTaskForm.get('deadline'))">
+            <input type="text" formControlName="deadline" id="deadline" class="form-control" [ngClass]="fieldClassErrorOrSuccess('deadline')">
+            <div *ngIf="showFieldError('deadline')" class="text-danger">O prazo é obrigatório</div>
         </div>
         <div class="form-group col-md-3">
             <label for="done" class="control-label">Situação</label>
-            <select class="form-control" formControlName="done" id="done" [class.is-valid]="reactiveTaskForm.get('done').valid" [class.is-invalid]="showFieldError(reactiveTaskForm.get('done'))">
+            <select class="form-control" formControlName="done" id="done" [ngClass]="fieldClassErrorOrSuccess('done')">
                 <option *ngFor="let option of taskDoneOptions" [value]="option.value">{{ option.text }}</option>
             </select>
+            <div *ngIf="showFieldError('done')" class="text-danger">A situação é obrigatória</div>
         </div>
     </div>
     <div class="row">
