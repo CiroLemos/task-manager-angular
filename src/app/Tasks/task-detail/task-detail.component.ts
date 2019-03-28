@@ -5,6 +5,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from "@angular/forms"
 
 import { TaskService } from "../shared/task.service";
 import { Task } from "../shared/task.model";
+import { FormUtils } from "../../shared/form.utils";
 
 @Component({
     selector: 'task-detail',
@@ -12,7 +13,8 @@ import { Task } from "../shared/task.model";
 })
 export class TaskDetailComponent implements OnInit, AfterViewInit {
 
-    public reactiveTaskForm: FormGroup;
+    public formUtils: FormUtils;
+    public form: FormGroup;
     public task: Task;
     public taskDoneOptions: Array<any>;
 
@@ -23,12 +25,14 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
             { value: true, text: 'Feita' }
         ];
 
-        this.reactiveTaskForm = this.formBuilder.group({
+        this.form = this.formBuilder.group({
             title: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
             deadline: [null, Validators.required],
             done: [null, Validators.required],
             description: [null]
         });
+
+        this.formUtils = new FormUtils(this.form);
 
         //Objecto do exemplo com mais de um formulário em um formGroup.
         // this.reactiveTaskForm = this.formBuilder.group({
@@ -57,12 +61,12 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
         $('#deadline').datetimepicker({
             sideBySide: true,
             locale: 'pt-br'
-        }).on('dp.change', () => this.getField('deadline').setValue($('#deadline').val()));
+        }).on('dp.change', () => this.formUtils.getField('deadline').setValue($('#deadline').val()));
     }
 
     public setTask(task: Task): void {
         this.task = task;
-        this.reactiveTaskForm.patchValue(task);
+        this.form.patchValue(task);
     }
 
     public goBack() {
@@ -71,10 +75,10 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
 
     public updateTask() {
 
-        this.task.title = this.reactiveTaskForm.get('title').value;
-        this.task.deadline = this.reactiveTaskForm.get('deadline').value;
-        this.task.done = this.reactiveTaskForm.get('done').value;
-        this.task.description = this.reactiveTaskForm.get('description').value;
+        this.task.title = this.form.get('title').value;
+        this.task.deadline = this.form.get('deadline').value;
+        this.task.done = this.form.get('done').value;
+        this.task.description = this.form.get('description').value;
 
         this.taskService.update(this.task)
             .subscribe(
@@ -83,19 +87,4 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
             );
     }
 
-    public fieldClassErrorOrSuccess(fieldName: string) {
-        return {
-            'is-invalid': this.showFieldError(fieldName),
-            'is-valid': this.getField(fieldName).valid
-        }
-    }
-
-    public showFieldError(fieldName: string): boolean {
-        let field = this.getField(fieldName);
-        return field.invalid && (field.touched || field.dirty);
-    }
-
-    public getField(fieldName: string) {
-        return this.reactiveTaskForm.get(fieldName);
-    }
 }

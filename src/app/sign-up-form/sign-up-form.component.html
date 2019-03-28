@@ -1,41 +1,66 @@
 <h1 class="page-header">Faça seu cadastro</h1>
 
 <div class="jumbotron">
-    <form [formGroup]="userForm" (ngSubmit)="signUpUser()">
+    <form [formGroup]="form" (ngSubmit)="signUpUser()">
         <div class="form-group row">
             <label for="name" class="col-sm-4 col-form-label">Nome</label>
             <div class="col-sm-4">
-                <input formControlName="name" type="text" class="form-control" id="name">
+                <input formControlName="name" type="text" class="form-control" id="name"
+                    [ngClass]="formUtils.fieldClassErrorOrSuccess('name')">
+
+                <div *ngIf="formUtils.showFieldError('name')" class="text-danger">
+                    <div *ngIf="form.get('name').errors.required">O título é obrigatório</div>
+                    <div *ngIf="form.get('name').errors.minlength">O título deve ter no mínimo 5 caracteres.</div>
+                    <div *ngIf="form.get('name').errors.maxlength">O título deve ter no máximo 100 caracteres.</div>
+                </div>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="email" class="col-sm-4 col-form-label">Email</label>
             <div class="col-sm-4">
-                <input formControlName="email" type="email" class="form-control" id="email">
+                <input formControlName="email" type="email" class="form-control" id="email"
+                    [ngClass]="formUtils.fieldClassErrorOrSuccess('email')">
+
+                <div *ngIf="formUtils.showFieldError('email')" class="text-danger">
+                    <div *ngIf="form.get('email').errors.required">O email é obrigatório</div>
+                    <div *ngIf="form.get('email').errors.email">O email digitado é inválido.</div>
+                </div>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="password" class="col-sm-4 col-form-label">Senha</label>
             <div class="col-sm-4">
-                <input formControlName="password" type="password" class="form-control" id="password">
+                <input formControlName="password" type="password" class="form-control" id="password"
+                    [ngClass]="formUtils.fieldClassErrorOrSuccess('password')">
+
+                <div *ngIf="formUtils.showFieldError('password')" class="text-danger">
+                    <div *ngIf="form.get('password').errors.required">O password é obrigatório</div>
+                    <div *ngIf="form.get('password').errors.minlength">O password deve ter no mínomo 8 caracteres.</div>
+                </div>
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="password_confirmation" class="col-sm-4 col-form-label">Confirmação de senha</label>
+            <label for="passwordConfirmation" class="col-sm-4 col-form-label">Confirmação de senha</label>
             <div class="col-sm-4">
-                <input  formControlName="passwordConfirmation" type="password" class="form-control" id="password_confirmation">
+                <input formControlName="passwordConfirmation" type="password" class="form-control"
+                    id="passwordConfirmation" [ngClass]="formUtils.fieldClassErrorOrSuccess('passwordConfirmation')">
+
+                <div *ngIf="formUtils.showFieldError('passwordConfirmation')" class="text-danger">
+                    <div *ngIf="form.get('passwordConfirmation').errors.required">A confirmação da senha é obrigatório</div>
+                    <div *ngIf="form.get('passwordConfirmation').errors.mismatch">A senha deve ser igual a confirmação de senha.</div>
+                </div>
             </div>
         </div>
 
 
-        <div class="form-group row">
-            <div class="col-sm-offset-4 col-sm-8">
-                <button type="submit" class="btn btn-primary">Criar Conta</button>
+            <div class="form-group row">
+                <div class="col-sm-offset-4 col-sm-8">
+                    <button type="submit" class="btn btn-primary">Criar Conta</button>
+                </div>
             </div>
-        </div>
     </form>
 
 </div>
