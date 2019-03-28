@@ -20,6 +20,7 @@ import { InMemoryWebApiModule } from "angular-in-memory-web-api";
 import { InMemoryTaskDataService } from './in-memory-task-data.service';
 
 import { Angular2TokenService } from "angular2-token";
+import { AuthService } from "./shared/auth.service";
 
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/operator/distinctUntilChanged";
@@ -51,7 +52,8 @@ import "rxjs/add/Observable/of";
   ],
   providers: [
     TaskService,
-    Angular2TokenService
+    Angular2TokenService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
