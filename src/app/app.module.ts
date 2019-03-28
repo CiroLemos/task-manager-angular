@@ -39,7 +39,8 @@ import * as datetimepicker from 'eonasdan-bootstrap-datetimepicker';
     TaskDetailComponent,
     DashboardComponent,
     TaskSearchComponent,
-    SignUpFormComponent
+    SignUpFormComponent,
+    SignInFormComponent
   ],
   imports: [
     BrowserModule,
