@@ -19,6 +19,8 @@ import { TaskService } from "./Tasks/shared/task.service";
 import { InMemoryWebApiModule } from "angular-in-memory-web-api";
 import { InMemoryTaskDataService } from './in-memory-task-data.service';
 
+import { Angular2TokenService } from "angular2-token";
+
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/operator/distinctUntilChanged";
 import "rxjs/add/operator/debounceTime";
@@ -27,9 +29,6 @@ import "rxjs/add/operator/catch";
 
 import "rxjs/add/Observable/throw";
 import "rxjs/add/Observable/of";
-
-import * as $ from 'jquery';
-import * as datetimepicker from 'eonasdan-bootstrap-datetimepicker';
 
 @NgModule({
   declarations: [
@@ -51,7 +50,8 @@ import * as datetimepicker from 'eonasdan-bootstrap-datetimepicker';
     InMemoryWebApiModule.forRoot(InMemoryTaskDataService)
   ],
   providers: [
-    TaskService
+    TaskService,
+    Angular2TokenService
   ],
   bootstrap: [AppComponent]
 })
