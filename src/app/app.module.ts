@@ -16,11 +16,14 @@ import { SignInFormComponent } from "./sign-in-form/sign-in-form.component";
 
 import { TaskService } from "./Tasks/shared/task.service";
 
-// import { InMemoryWebApiModule } from "angular-in-memory-web-api";
-// import { InMemoryTaskDataService } from './in-memory-task-data.service';
+//  import { InMemoryWebApiModule } from "angular-in-memory-web-api";
+//  import { InMemoryTaskDataService } from './in-memory-task-data.service';
 
 import { Angular2TokenService } from "angular2-token";
 import { AuthService } from "./shared/auth.service";
+
+import { AuthGuard } from "./guards/auth.guard";
+import { NotAuthenticatedGuard } from "./guards/not-authenticated.guard";
 
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/operator/distinctUntilChanged";
@@ -53,7 +56,9 @@ import "rxjs/add/Observable/of";
   providers: [
     TaskService,
     Angular2TokenService,
-    AuthService
+    AuthService,
+    AuthGuard,
+    NotAuthenticatedGuard
   ],
   bootstrap: [AppComponent]
 })

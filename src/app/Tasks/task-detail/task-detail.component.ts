@@ -7,6 +7,9 @@ import { TaskService } from "../shared/task.service";
 import { Task } from "../shared/task.model";
 import { FormUtils } from "../../shared/form.utils";
 
+import * as $ from 'jquery';
+import 'eonasdan-bootstrap-datetimepicker';
+
 @Component({
     selector: 'task-detail',
     templateUrl: './task-detail.component.html',

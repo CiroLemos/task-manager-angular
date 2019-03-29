@@ -1,7 +1,10 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 
 import { FormUtils } from "../shared/form.utils";
+import { AuthService } from "../shared/auth.service";
+import { User } from "../shared/user.model";
 
 @Component({
     selector: 'sign-up-form',
@@ -12,21 +15,33 @@ export class SignUpFormComponent {
 
     public form: FormGroup;
     public formUtils: FormUtils;
+    public submitted: boolean;
+    public formErrors: Array<string>;
 
-    constructor(private formBuilder: FormBuilder) {
-        this.form = this.formBuilder.group({
-            name: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-            email: [null, [Validators.required, Validators.email]],
-            password: [null, [Validators.required, Validators.minLength(8)]],
-            passwordConfirmation: [null, [Validators.required]]
-        }, { validator: this.passwordConfirmationValidator});
-
+    constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) {
+        this.setupForm();
         this.formUtils = new FormUtils(this.form);
+        this.submitted = false;
+        this.formErrors = null;
     }
 
     public signUpUser() {
-        console.log('Formulário de Sign Up enviado.')
-        console.log(this.form.value);
+        this.submitted = true;
+        this.authService.signUp(this.form.value as User)
+            .subscribe(() => {
+                alert('Sua conta foi criada com sucesso');
+                this.router.navigate(['/dashboard']);
+                this.formErrors = null;
+            },
+            (error) => {
+                this.submitted = false;
+                if(error.status === 422) {
+                    this.formErrors = JSON.parse(error._body).errors.full_messages;
+                } else {
+                    this.formErrors = ['Não foi possível processar sua solicitação.']
+                }
+            }
+            )
     }
 
     public passwordConfirmationValidator(form: FormGroup) {
@@ -35,5 +50,14 @@ export class SignUpFormComponent {
         }else {
             form.get('passwordConfirmation').setErrors({'mismatch': true});
         }
+    }
+
+    public setupForm() {
+        this.form = this.formBuilder.group({
+            name: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+            email: [null, [Validators.required, Validators.email]],
+            password: [null, [Validators.required, Validators.minLength(8)]],
+            passwordConfirmation: [null, [Validators.required]]
+        }, { validator: this.passwordConfirmationValidator});
     }
 }
