@@ -16,8 +16,8 @@ import { SignInFormComponent } from "./sign-in-form/sign-in-form.component";
 
 import { TaskService } from "./Tasks/shared/task.service";
 
-import { InMemoryWebApiModule } from "angular-in-memory-web-api";
-import { InMemoryTaskDataService } from './in-memory-task-data.service';
+// import { InMemoryWebApiModule } from "angular-in-memory-web-api";
+// import { InMemoryTaskDataService } from './in-memory-task-data.service';
 
 import { Angular2TokenService } from "angular2-token";
 import { AuthService } from "./shared/auth.service";
@@ -47,8 +47,8 @@ import "rxjs/add/Observable/of";
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    ReactiveFormsModule,
-    InMemoryWebApiModule.forRoot(InMemoryTaskDataService)
+    ReactiveFormsModule
+    //InMemoryWebApiModule.forRoot(InMemoryTaskDataService)
   ],
   providers: [
     TaskService,

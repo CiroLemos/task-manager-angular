@@ -8,7 +8,10 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class TaskService {
 
+    // para o in-memory-webapi
     public taskUrl = 'api/tasks';
+
+    //public taskUrl = 'http://api.taskmanager.test:3000/tasks';
     public headers = new Headers({ 'Content-type': 'application/json' });
 
     constructor(private http: Http) { }
