@@ -1,6 +1,16 @@
 <h1 class="page-header">Faça seu login</h1>
 
 <div class="jumbotron">
+
+    <div *ngIf="formErrors" class="alert alert-danger">
+        <strong>
+            Ocorreu um erro ao tentar logar no sistema.
+        </strong>
+        <ul>
+            <li *ngFor="let error of formErrors">{{ error }}</li>
+        </ul>
+    </div>
+
     <form [formGroup]="form" (ngSubmit)="signInUser()">
 
         <div class="form-group row">
@@ -30,7 +40,7 @@
 
         <div class="form-group row">
             <div class="col-sm-offset-4 col-sm-8">
-                <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Criar Conta</button>
+                <button type="submit" [disabled]="form.invalid || submitted" class="btn btn-primary">Criar Conta</button>
             </div>
         </div>
     </form>

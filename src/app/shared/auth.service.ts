@@ -17,12 +17,18 @@ export class AuthService {
             .catch(this.handleErrors);
     }
 
-    public signIn(uid: string, password: string) {
-
+    public signIn(uid: string, password: string): Observable<Response> {
+        let signData = {
+            email: uid,
+            password: password
+        };
+        return this.tokenService.signIn(signData)
+            .catch(this.handleErrors);
     }
 
-    public signOut() {
-
+    public signOut(): Observable<Response> {
+        return this.tokenService.signOut()
+            .catch(this.handleErrors);
     }
 
     public userSignedIn(): boolean {

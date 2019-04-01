@@ -1,12 +1,21 @@
 import { Component } from '@angular/core';
 
+import { Router } from "@angular/router";
+
 import { AuthService } from "../shared/auth.service";
 
 @Component({
     selector: 'navbar',
-    templateUrl: './navbar.component.html', 
+    templateUrl: './navbar.component.html',
 })
 export class NavBarComponent {
-    
-    constructor(private authService: AuthService){}
+
+    constructor(private authService: AuthService, private router: Router) { }
+
+    public signOutUser(){
+        this.authService.signOut()
+            .subscribe(
+                () => this.router.navigate(['/signin'])
+            );
+    }
 }

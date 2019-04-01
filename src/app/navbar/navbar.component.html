@@ -13,8 +13,15 @@
           <a class="nav-link" routerLink="/tasks">Tarefas</a>
         </li>
       </ul>
-      <div class="form-inline my-2 my-lg-0">
+      <div class="form-inline my-2 my-lg-0 mr-auto">
         <task-search></task-search>
+      </div>
+
+      <div class="navbar-form ml-auto">
+        <button class="btn btn-danger" (click)="signOutUser()">
+            <span class="oi oi-account-logout"></span>
+            Sair
+          </button>
       </div>
     </div>
   </nav>
