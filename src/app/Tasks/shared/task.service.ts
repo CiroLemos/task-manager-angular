@@ -1,55 +1,59 @@
-import { Http, Response, Headers } from "@angular/http";
+import { Response } from "@angular/http";
 import { Injectable } from "@angular/core";
 
 import { Task } from "./task.model";
 import { Observable } from "rxjs/Observable";
 
+import { Angular2TokenService } from "angular2-token";
+
 
 @Injectable()
 export class TaskService {
 
-    // para o in-memory-webapi
-    public taskUrl = 'api/tasks';
+    public taskUrl = 'tasks';
 
-    //public taskUrl = 'http://api.taskmanager.test:3000/tasks';
-    public headers = new Headers({ 'Content-type': 'application/json' });
-
-    constructor(private http: Http) { }
+    constructor(private tokenHttp: Angular2TokenService) { }
 
     public getAll(): Observable<Task[]> {
-        return this.http.get(this.taskUrl)
+
+        let url = `${this.taskUrl}?q[s]=updated_at+DESC`;
+
+        return this.tokenHttp.get(url)
             .catch(this.handleErrors)
-            .map((response: Response) => response.json().data as Task[])
+            .map((response: Response) => this.responseToTasks(response));
     }
 
 
     public getImportant(): Observable<Task[]> {
+
+        let url = `${this.taskUrl}?q[s]=deadline+ASC`;
+
         return this.getAll()
             .catch(this.handleErrors)
-            .map(tasks => tasks.slice(0, 3));
+            .map(tasks => this.responseToTasks(tasks));
     }
 
     public getById(id: number): Observable<Task> {
         let url = `${this.taskUrl}/${id}`;
-        return this.http.get(url)
+        return this.tokenHttp.get(url)
             .catch(this.handleErrors)
-            .map((res: Response) => res.json().data as Task)
+            .map((res: Response) => this.responseToTask(res));
     }
 
     public create(task: Task): Observable<Task> {
         let url = this.taskUrl;
         let body = JSON.stringify(task);
 
-        return this.http.post(url, body, { headers: this.headers })
+        return this.tokenHttp.post(url, body)
             .catch(this.handleErrors)
-            .map(response => response.json().data as Task);
+            .map((res: Response) => this.responseToTask(res));
     }
 
     public update(task: Task): Observable<Task> {
         let url = `${this.taskUrl}/${task.id}`;
         let body = JSON.stringify(task);
 
-        return this.http.put(url, body, { headers: this.headers })
+        return this.tokenHttp.put(url, body)
             .catch(this.handleErrors)
             .map(() => task)
     }
@@ -57,21 +61,49 @@ export class TaskService {
     public delete(id: number): Observable<null> {
         let url = `${this.taskUrl}/${id}`;
 
-        return this.http.delete(url, { headers: this.headers })
+        return this.tokenHttp.delete(url)
             .catch(this.handleErrors)
             .map(() => null);
     }
 
     public searchByTitle(term: string): Observable<Task[]> {
-        let url = `${this.taskUrl}?title=${term}`;
+        let url = `${this.taskUrl}?q=[title_cont]=${term}`;
 
-        return this.http.get(url)
+        return this.tokenHttp.get(url)
             .catch(this.handleErrors)
-            .map(response => response.json().data as Task[]);
+            .map(response => this.responseToTasks(response));
     }
 
     private handleErrors(error: any) {
         console.log('SALVANDO O ERROR NO LOG', error);
         return Observable.throw(error);
+    }
+
+    private responseToTasks(response: Response): Task[] {
+        
+        let collection = response.json().data as Array<any>;
+        let tasks: Task[] = [];
+
+        collection.forEach(item => {
+            let task = new Task(
+                item.id,
+                item.attributes.title,
+                item.attributes.description,
+                item.attributes.done,
+                item.attributes.deadline
+            )
+            tasks.push(task);
+        });
+        return tasks;
+    }
+
+    private responseToTask(res: Response): Task {
+        return new Task(
+            res.json().data.id,
+            res.json().data.attributes.title,
+            res.json().data.attributes.description,
+            res.json().data.attributes.done,
+            res.json().data.attributes.deadline
+        );
     }
 }
