@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { Task } from "./task.model";
 import { Observable } from "rxjs/Observable";
 
-import { Angular2TokenService } from "angular2-token";
+import { TokenService } from "../../shared/token.service";
 
 
 @Injectable()
@@ -12,7 +12,7 @@ export class TaskService {
 
     public taskUrl = 'tasks';
 
-    constructor(private tokenHttp: Angular2TokenService) { }
+    constructor(private tokenHttp: TokenService) { }
 
     public getAll(): Observable<Task[]> {
 

@@ -2,7 +2,7 @@ import { Http, Response, Headers } from "@angular/http";
 import { Injectable } from "@angular/core";
 
 import { Observable } from "rxjs/Observable";
-import { Angular2TokenService } from "angular2-token";
+import { TokenService } from "./token.service";
 
 import { User } from "./user.model";
 
@@ -10,7 +10,7 @@ import { User } from "./user.model";
 @Injectable()
 export class AuthService {
 
-    constructor(private tokenService: Angular2TokenService){ }
+    constructor(private tokenService: TokenService){ }
 
     public signUp(user: User): Observable<Response> {
         return this.tokenService.registerAccount(user as any)

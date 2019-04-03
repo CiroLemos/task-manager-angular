@@ -19,7 +19,7 @@ import { TaskService } from "./Tasks/shared/task.service";
 //  import { InMemoryWebApiModule } from "angular-in-memory-web-api";
 //  import { InMemoryTaskDataService } from './in-memory-task-data.service';
 
-import { Angular2TokenService } from "angular2-token";
+import { TokenService } from "./shared/token.service";
 import { AuthService } from "./shared/auth.service";
 
 import { AuthGuard } from "./guards/auth.guard";
@@ -55,7 +55,7 @@ import "rxjs/add/Observable/of";
   ],
   providers: [
     TaskService,
-    Angular2TokenService,
+    TokenService,
     AuthService,
     AuthGuard,
     NotAuthenticatedGuard
