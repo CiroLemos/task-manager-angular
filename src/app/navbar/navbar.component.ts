@@ -12,10 +12,14 @@ export class NavBarComponent {
 
     constructor(private authService: AuthService, private router: Router) { }
 
-    public signOutUser(){
+    public signOutUser() {
         this.authService.signOut()
             .subscribe(
                 () => this.router.navigate(['/signin'])
             );
+    }
+
+    public userSignedIn() {
+        return this.authService.userSignedIn();
     }
 }
